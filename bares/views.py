@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django import forms
 from django.core.validators import validate_slug, RegexValidator
+from django.contrib.auth.models import User
 
 class registrationForm(forms.Form):
-	name = forms.CharField (label      = 'Nombre', 
+	nombre = forms.CharField (label      = 'Nombre', 
 							max_length = 10, 
 							required   = True,)
 							
@@ -23,7 +24,7 @@ class registrationForm(forms.Form):
 		n  = cleaned_data.get("pw")
 		na = cleaned_data.get("pw_again")
 		if n != na:
-			raise forms.ValidationError ('los nombres no coinciden')
+			raise forms.ValidationError ('los contrasnas no coinciden')
 
 def index (request):
 	return render(request, 'index.html')
@@ -33,8 +34,11 @@ def registrar (request):
 		form = registrationForm (request.POST)
 		
 		if form.is_valid ():
+			User.objects.create(username 	= form.cleaned_data['nombre'], 
+								email		= form.cleaned_data['email'],
+								password	= form.cleaned_data['pw']),
 			context =  {
-				'fulanito':form.cleaned_data['name'],
+				'fulanito':form.cleaned_data['nombre'],
 				'form':form,
 			}
 
