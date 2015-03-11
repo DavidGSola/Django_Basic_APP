@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="utf-8">
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+		<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+		<title>Django: una app muy básica</title>
+	</head>
 	<body>
-		<div>
-			ESTO ES UN MENÚ FIJO
+		<div class="menu">
+			Práctica 2
 		</div>
 		<div id="content">
 			{% block content %}{% endblock %}
