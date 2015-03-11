@@ -40,6 +40,11 @@
 	color: #FFFFFF;
 }
 
+.form_mensaje{
+	margin-left: 25px;
+	color: #F44336;
+}
+
 body {
 	font-family: "Verdana, Helvetica";
 	background-color:#EFEFEF;

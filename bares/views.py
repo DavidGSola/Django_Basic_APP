@@ -42,27 +42,40 @@ def index (request):
 	return render(request, 'index.html')
 
 def login (request):
+	# Si viene del POST del boton de submit
 	if request.method == 'POST':
 		form = loginForm (request.POST)
 		
+		# Si el formulario es valido se comprueban los credenciales
 		if form.is_valid ():
 			user = authenticate(username 	= form.cleaned_data['nombre'], 
 								password	= form.cleaned_data['pw'])
 			if user is not None:
 				if user.is_active:
-					print("User is valid, active and authenticated")
+					context = {
+						'username':form.cleaned_data['nombre'],
+					}
+					return render(request, 'bienvenida.html', context)
 				else:
-					print("The password is valid, but the account has been disabled!")
+					context = {
+						'mensaje':'Usuario no activo',
+						'form':form,
+					}
+					return render(request, 'login.html', context)
 			else:
-				# the authentication system was unable to verify the username and password
-				print("The username and password were incorrect.")
+				context = {
+					'mensaje':'Usuario o contrasena incorrecta',
+					'form':form,
+				}
+				return render(request, 'login.html', context)
+	# Si es la primera vez que se llama (GET)
 	else:
 		fulanito = 'default'
 	
 		form = loginForm()
 	
 		context = {
-			'fulanito':fulanito,
+			'mensaje':'',
 			'form':form,
 		}
 	
