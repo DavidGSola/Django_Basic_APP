@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django import forms
 from django.core.validators import validate_slug, RegexValidator
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 
 class registroForm(forms.Form):
 	nombre = forms.CharField (label		= 'Nombre', 
@@ -70,7 +70,7 @@ class loginForm(forms.Form):
 							max_length = 10, 
 							required   = True,)
 							
-	pw = forms.CharField(	label		= 'Contrasena',
+	pw = forms.CharField(	label		= 'Contraseña',
 							required 	= True,
 							widget		= forms.PasswordInput,)
 	def clean (self):
@@ -79,7 +79,7 @@ class loginForm(forms.Form):
 def index (request):
 	return render(request, 'index.html')
 
-def login (request):
+def mi_login (request):
 	# Si viene del POST del boton de submit
 	if request.method == 'POST':
 		form = loginForm (request.POST)
@@ -88,12 +88,12 @@ def login (request):
 		if form.is_valid ():
 			user = authenticate(username 	= form.cleaned_data['nombre'], 
 								password	= form.cleaned_data['pw'])
-			if user is not None:
+			if user is not None:				
 				if user.is_active:
-					context = {
-						'username':form.cleaned_data['nombre'],
-					}
-					return render(request, 'bienvenida.html', context)
+					# Utilizamos la función de login de Django
+					login (request, user)
+					
+					return redirect('bienvenida.html')
 				else:
 					context = {
 						'mensaje':'Usuario no activo',
@@ -108,8 +108,6 @@ def login (request):
 				return render(request, 'login.html', context)
 	# Si es la primera vez que se llama (GET)
 	else:
-		fulanito = 'default'
-	
 		form = loginForm()
 	
 		context = {
@@ -124,6 +122,7 @@ def registrar (request):
 		form = registroForm (request.POST)
 		
 		if form.is_valid ():
+			# Creamos el usuario en la base de datos
 			try:
 				User.objects.create_user(username = form.cleaned_data['nombre'], 
 									email = form.cleaned_data['email'],
@@ -135,12 +134,8 @@ def registrar (request):
 					'mensaje':'Usuario existente',
 				}
 				return render(request, 'registrar.html', context)
-				
-			context =  {
-				'form':loginForm(),
-			}
-
-			return render (request, 'login.html', context)
+		
+			return redirect ('login.html')
 		else:
 			context =  {
 				'form':form,
@@ -155,3 +150,10 @@ def registrar (request):
 		}
 	
 		return render(request, 'registrar.html', context)
+
+def bienvenida (request):
+	return render(request, 'bienvenida.html')
+
+def mi_logout (request):
+	logout(request)
+	return redirect('login')

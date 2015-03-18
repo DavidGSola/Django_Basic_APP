@@ -14,6 +14,10 @@ a:hover {
     color: #FFBF00;
 }
 
+p{
+	margin:10px;
+}
+
 .menu_contenedor{
 	font-weight:300;
 	font-size: 1.5em;

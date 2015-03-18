@@ -15,8 +15,16 @@
 					The Sloth Site
 				</div>
 				<div class="menu_derecha">
-					<a class="menu_enlace" href="registrar.html">Registro</a>
-					<a class="menu_enlace" href="login.html">Login</a>
+					{% if user.is_authenticated %} 
+					
+					<a class ="menu_enlace" href="{% url 'logout' %}">Logout</a>
+					
+					{% else %}
+					
+					<a class="menu_enlace" href="{% url 'registrar' %}">Registro</a>
+					<a class="menu_enlace" href="{% url 'login' %}">Login</a>
+					
+					{% endif %}
 				</div>
 			</div>
 		</div>
