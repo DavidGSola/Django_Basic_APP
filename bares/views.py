@@ -8,15 +8,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
 class registroForm(forms.Form):
-	nombre = forms.CharField (label      = 'Nombre', 
-							max_length = 10, 
-							required   = True,)
+	nombre = forms.CharField (label		= 'Nombre', 
+							max_length 	= 10, 
+							required   	= True,)
 							
-	pw = forms.CharField(	label		= 'Contrasena',
-							required 	= True,
-							widget		= forms.PasswordInput,)
+	pw = forms.CharField (label		= 'Contraseña',
+						required 	= True,
+						widget		= forms.PasswordInput,)
 							
-	pw_again = forms.CharField (label		='Repita su contrasena',
+	pw_again = forms.CharField (label		='Repita su contraseña',
 								required 	= True,
 								widget		= forms.PasswordInput,)
 								
@@ -34,7 +34,7 @@ class registroForm(forms.Form):
 										],
 									)
 									
-	ano_credito = forms.CharField( 	label = "Año de caducidad",
+	ano_credito = forms.CharField( 	label = "Año de expiración",
 										required = True,
 										max_length=4,
 										validators=[
@@ -45,8 +45,8 @@ class registroForm(forms.Form):
 											),
 										],
 									)
-									
-	mes_credito = forms.CharField( 	label = "Mes de caducidad",
+
+	mes_credito = forms.CharField( 	label = "Mes de expiración",
 										required = True,
 										max_length=2,
 										validators=[
@@ -63,7 +63,7 @@ class registroForm(forms.Form):
 		n  = cleaned_data.get("pw")
 		na = cleaned_data.get("pw_again")
 		if n != na:
-			raise forms.ValidationError ('los contrasnas no coinciden')
+			raise forms.ValidationError ('Las contraseñas no coinciden')
 			
 class loginForm(forms.Form):
 	nombre = forms.CharField (label      = 'Nombre', 
@@ -102,7 +102,7 @@ def login (request):
 					return render(request, 'login.html', context)
 			else:
 				context = {
-					'mensaje':'Usuario o contrasena incorrecta',
+					'mensaje':'Usuario o contraseña incorrecta',
 					'form':form,
 				}
 				return render(request, 'login.html', context)
@@ -124,28 +124,33 @@ def registrar (request):
 		form = registroForm (request.POST)
 		
 		if form.is_valid ():
-			User.objects.create(username 	= form.cleaned_data['nombre'], 
-								email		= form.cleaned_data['email'],
-								password	= form.cleaned_data['pw']),
+			try:
+				User.objects.create_user(username = form.cleaned_data['nombre'], 
+									email = form.cleaned_data['email'],
+									password = form.cleaned_data['pw']),
+			except Exception as error:
+				print error
+				context = {
+					'form':form,
+					'mensaje':'Usuario existente',
+				}
+				return render(request, 'registrar.html', context)
+				
 			context =  {
-				'fulanito':form.cleaned_data['nombre'],
-				'form':form,
+				'form':loginForm(),
 			}
 
 			return render (request, 'login.html', context)
 		else:
 			context =  {
-				'fulanito': 'error',
 				'form':form,
 			}
 			return render (request, 'registrar.html', context)
 	else:
-		fulanito = 'default'
 	
 		form = registroForm()
 	
 		context = {
-			'fulanito':fulanito,
 			'form':form,
 		}
 	
