@@ -5,6 +5,15 @@
 	font-family: 'Roboto';
 }
 
+a{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+a:hover {
+    color: #FFBF00;
+}
+
 .menu_contenedor{
 	font-weight:300;
 	font-size: 1.5em;
@@ -28,6 +37,11 @@
 
 .menu_derecha{
 	float:right;
+}
+
+.menu_enlace{
+	margin-left:20px;
+	font-size: 0.8em;
 }
 
 .form{
