@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django import forms
@@ -19,9 +21,45 @@ class registroForm(forms.Form):
 								widget		= forms.PasswordInput,)
 								
 	email = forms.EmailField(label = 'Correo electronico')
+	
+	tarjeta_credito = forms.CharField( 	label = "Tarjeta de credito",
+										required = True,
+										max_length=16,
+										validators=[
+											RegexValidator(
+												r'^[0-9]{16}$',
+												'Se necesitan 16 dígitos',
+												'Número invalido'
+											),
+										],
+									)
+									
+	ano_credito = forms.CharField( 	label = "Año de caducidad",
+										required = True,
+										max_length=4,
+										validators=[
+											RegexValidator(
+												r'^[0-9]{4}$',
+												'Se necesitan 4 dígitos',
+												'Número invalido'
+											),
+										],
+									)
+									
+	mes_credito = forms.CharField( 	label = "Mes de caducidad",
+										required = True,
+										max_length=2,
+										validators=[
+											RegexValidator(
+												r'[0-9]{1,2}$',
+												'Se necesitan 4 dígitos',
+												'Número invalido'
+											),
+										],
+									)
 
 	def clean (self):
-		cleaned_data = super(registrationForm, self).clean()
+		cleaned_data = super(registroForm, self).clean()
 		n  = cleaned_data.get("pw")
 		na = cleaned_data.get("pw_again")
 		if n != na:
@@ -94,13 +132,13 @@ def registrar (request):
 				'form':form,
 			}
 
-			return render (request, 'index.html', context)
+			return render (request, 'login.html', context)
 		else:
 			context =  {
 				'fulanito': 'error',
 				'form':form,
 			}
-			return render (request, 'index.html', context)
+			return render (request, 'registrar.html', context)
 	else:
 		fulanito = 'default'
 	
