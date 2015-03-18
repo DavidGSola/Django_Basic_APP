@@ -8,8 +8,17 @@
 		<title>Django: una app muy básica</title>
 	</head>
 	<body>
-		<div class="menu">
-			Práctica 2
+		<div class="menu_contenedor">
+			<img src="{% static 'img/logo.png' %}" />
+			<div class="menu">
+				<div class="menu_izquierda">
+					The Sloth Site
+				</div>
+				<div class="menu_derecha">
+					<a href="registrar.html">Registro</a>
+					<a href="login.html">Login</a>
+				</div>
+			</div>
 		</div>
 		<div id="content">
 			{% block content %}{% endblock %}
