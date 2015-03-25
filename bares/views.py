@@ -200,3 +200,6 @@ def geografia(request):
 	}
 
 	return render(request, 'geografia.html', context)
+
+def imagenes_rss(request):
+	return render(request, 'geografia.html')

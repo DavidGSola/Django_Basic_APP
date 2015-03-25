@@ -9,4 +9,5 @@ urlpatterns = patterns ('',
 	url(r'^bienvenida', views.bienvenida, name='bienvenida'),
 	url(r'^logout', views.mi_logout, name='logout'),
 	url(r'^geografia', views.geografia, name='geografia'),
+	url(r'^imagenes_rss', views.imagenes_rss, name='imagenes_rss'),
 )

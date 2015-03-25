@@ -12,7 +12,7 @@
 			<img src="{% static 'img/logo.png' %}" />
 			<div class="menu">
 				<div class="menu_izquierda">
-					The Sloth Site
+					<a href="{% url 'bienvenida' %}">The Sloth Site</a>
 				</div>
 				<div class="menu_derecha">
 					{% if user.is_authenticated %} 
