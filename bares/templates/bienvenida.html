@@ -1,4 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 	<p>Bienvenido a la web <b>{{ user.username }}</b></p>
+	
+	<ul>
+		<li>
+			<a href="{% url 'geografia' %}">Logout</a>
+		</li>
+	</ul>
 {% endblock %}

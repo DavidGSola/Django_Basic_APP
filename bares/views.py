@@ -6,6 +6,7 @@ from django import forms
 from django.core.validators import validate_slug, RegexValidator
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from lxml import etree
 
 class registroForm(forms.Form):
 	nombre = forms.CharField (label		= 'Nombre', 
@@ -152,8 +153,50 @@ def registrar (request):
 		return render(request, 'registrar.html', context)
 
 def bienvenida (request):
-	return render(request, 'bienvenida.html')
-
+	if request.user.is_authenticated():
+			return render(request, 'bienvenida.html')
+	else:
+		return redirect('login')
+		
 def mi_logout (request):
 	logout(request)
 	return redirect('login')
+
+def geografia(request):
+	comunidad_autonoma = None 
+	provincia = None
+	municipio = None
+	comarca = None
+	
+	tree = etree.parse('http://maps.googleapis.com/maps/api/geocode/xml?address=etsiit+granada&sensor=true_or_false')
+	
+	items = tree.xpath('/GeocodeResponse/result/address_component')
+	
+	for i in items:
+		tipos = i.xpath('type')
+		for t in tipos:
+			if t.text == "administrative_area_level_1":
+				nombres = i.xpath('long_name')
+				if nombres:
+					comunidad_autonoma = nombres[0]
+			elif t.text == "administrative_area_level_2":
+				nombres = i.xpath('long_name')
+				if nombres:
+					provincia = nombres[0]
+			elif t.text == "administrative_area_level_3":
+				nombres = i.xpath('long_name')
+				if nombres:
+					municipio = nombres[0]
+			elif t.text == "administrative_area_level_4":
+				nombres = i.xpath('long_name')
+				if nombres:
+					comarca = nombres[0]
+
+	context = {
+		'ca':comunidad_autonoma.text,
+		'provincia':provincia.text,
+		'municipio':municipio.text,
+		'comarca':comarca.text,
+	}
+
+	return render(request, 'geografia.html', context)

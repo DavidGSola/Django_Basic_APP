@@ -18,6 +18,15 @@ p{
 	margin:10px;
 }
 
+body {
+	font-family: "Verdana, Helvetica";
+	background-color:#EFEFEF;
+}
+
+h1{
+	margin: 10px;
+}
+
 .menu_contenedor{
 	font-weight:300;
 	font-size: 1.5em;
@@ -76,7 +85,8 @@ p{
 	color: #F44336;
 }
 
-body {
-	font-family: "Verdana, Helvetica";
-	background-color:#EFEFEF;
+.bloque_texto{
+	margin-left: 25px;
+	display: inline-block;
+	background-color: #FFFFFF;
 }
