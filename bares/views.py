@@ -202,4 +202,17 @@ def geografia(request):
 	return render(request, 'geografia.html', context)
 
 def imagenes_rss(request):
-	return render(request, 'geografia.html')
+	tree = etree.parse('http://ep00.epimg.net/rss/tecnologia/portada.xml')
+	
+	imagenes = tree.xpath('//enclosure/@url')
+	
+	# Buscamos la imagen de cabecera y la añadimos a la lista de imángees
+	# en formato de texto
+	imagen_extra = tree.xpath('//image/url')
+	imagenes.append(imagen_extra[0].text)
+	
+	context = {
+		'imagenes':imagenes,
+	}
+	
+	return render(request, 'imagenes_rss.html', context)

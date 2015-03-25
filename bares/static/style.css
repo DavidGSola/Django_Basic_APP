@@ -94,3 +94,12 @@ h1{
 .body_enlace{
 	color: #58ACFA;
 }
+
+.body_centrado{
+	margin-left:25px;
+}
+
+.imagen{
+	width: 500px;
+	height: 500px;
+}
