@@ -1,13 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 	<h1>Crawler RSS</h1>
-		<form action="{% url 'crawler_rss' %}" method="post">{% csrf_token %}
-			<input type="text" name="caca">
+		<form class="body_centrado" action="{% url 'crawler_rss' %}" method="post">{% csrf_token %}
+			<input type="text" name="categoria">
 			<input type="submit" value="Buscar">
 		</form>
 		
+		<ul>
 		{% for noticia in noticias %}
-			<p>{{ noticia.titulo }}</p>
+			<li>
+				<a class="body_enlace" href="{{ noticia.link }}">{{ noticia.titulo }}</a>
+			</li>
 		{% endfor %}
+		</ul>
 	</div>
 {% endblock %}

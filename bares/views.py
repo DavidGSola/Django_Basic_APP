@@ -9,7 +9,6 @@ from django.contrib.auth import authenticate, login, logout
 from lxml import etree
 from pymongo import MongoClient
 
-
 class registroForm(forms.Form):
 	nombre = forms.CharField (label		= 'Nombre', 
 							max_length 	= 10, 
@@ -225,7 +224,7 @@ def crawler_rss(request):
 	coleccion = db.coleccion
 
 	if request.method == 'POST':
-		noticias = coleccion.find({"categorias":request.POST.get("caca","")})
+		noticias = coleccion.find({"categorias":request.POST.get("categoria","")})
 		
 		context = {
 			'noticias':noticias,
@@ -235,7 +234,6 @@ def crawler_rss(request):
 	else:
 		mongo_cliente.db.coleccion.remove()
 		
-		noticias = []
 		tree = etree.parse('http://ep00.epimg.net/rss/tecnologia/portada.xml')
 		
 		items = tree.xpath('//item')
@@ -262,8 +260,6 @@ def crawler_rss(request):
 			}
 			
 			coleccion.insert_one(noticia).inserted_id
-			
-			noticias.append(noticia)
 		
 		print(coleccion.count())
 	
