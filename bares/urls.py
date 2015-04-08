@@ -10,4 +10,5 @@ urlpatterns = patterns ('',
 	url(r'^logout', views.mi_logout, name='logout'),
 	url(r'^geografia', views.geografia, name='geografia'),
 	url(r'^imagenes_rss', views.imagenes_rss, name='imagenes_rss'),
+	url(r'^crawler_rss', views.crawler_rss, name='crawler_rss'),
 )

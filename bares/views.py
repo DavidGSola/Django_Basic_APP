@@ -7,6 +7,8 @@ from django.core.validators import validate_slug, RegexValidator
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from lxml import etree
+from pymongo import MongoClient
+
 
 class registroForm(forms.Form):
 	nombre = forms.CharField (label		= 'Nombre', 
@@ -216,3 +218,53 @@ def imagenes_rss(request):
 	}
 	
 	return render(request, 'imagenes_rss.html', context)
+
+def crawler_rss(request):
+	mongo_cliente = MongoClient()
+	db = mongo_cliente.db
+	coleccion = db.coleccion
+
+	if request.method == 'POST':
+		noticias = coleccion.find({"categorias":request.POST.get("caca","")})
+		
+		context = {
+			'noticias':noticias,
+		}
+		
+		return render(request, 'crawler_rss.html', context)
+	else:
+		mongo_cliente.db.coleccion.remove()
+		
+		noticias = []
+		tree = etree.parse('http://ep00.epimg.net/rss/tecnologia/portada.xml')
+		
+		items = tree.xpath('//item')
+		
+		for i in items:
+			titulo_temp = i.xpath('title')
+			if titulo_temp:
+				titulo = titulo_temp[0].text.encode('utf-8')
+			
+			link_temp = i.xpath('link')
+			if link_temp:
+				link = link_temp[0].text.encode('utf-8')
+			
+			categorias = []
+			categorias_temp = i.xpath('category')
+			
+			for c in categorias_temp:
+				categorias.append(c.text.encode('utf-8'))
+				
+			noticia = {
+				'titulo':titulo,
+				'link':link,
+				'categorias':categorias,
+			}
+			
+			coleccion.insert_one(noticia).inserted_id
+			
+			noticias.append(noticia)
+		
+		print(coleccion.count())
+	
+	return render(request, 'crawler_rss.html')
