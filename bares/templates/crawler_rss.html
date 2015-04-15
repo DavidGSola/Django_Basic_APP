@@ -8,6 +8,9 @@
 			</div>
 			<input class="btn btn-primary" type="submit" value="Buscar">
 		</form>
+		
+		<button class="btn btn-secondary element_margin" id='btnActualizar'>Actualizar</button>
+		
 		<h2>Resultados de la búsqueda</h2>
 		<ul class="nav nav-pills">
 		{% for noticia in noticias %}
@@ -17,5 +20,37 @@
 		{% endfor %}
 		</ul>
 
+	<div id="modal_resultado" class="modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title">Noticias actualizadas</h4>
+				</div>
+				<div class="modal-body">
+					<p id="modal_texto"/>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$("#btnActualizar").click( function() {
 		
+			$.post(
+				"{% url 'crawler_rss_actualizar' %}",
+				{csrfmiddlewaretoken: '{{ csrf_token }}'},
+				function(result)
+				{
+					$('#modal_texto').text("Se han actualizado un total de " + result.num_noticias + " noticias.");
+					$("#modal_resultado").modal();
+				}
+			);
+		});
+	</script>
+		
+	
 {% endblock %}

@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django import forms
 from django.core.validators import validate_slug, RegexValidator
 from django.contrib.auth.models import User
@@ -264,3 +264,42 @@ def crawler_rss(request):
 		print(coleccion.count())
 	
 	return render(request, 'crawler_rss.html')
+
+def crawler_rss_actualizar(request):
+	mongo_cliente = MongoClient()
+	db = mongo_cliente.db
+	coleccion = db.coleccion
+	
+	mongo_cliente.db.coleccion.remove()
+	
+	numero_items = 0
+	
+	tree = etree.parse('http://ep00.epimg.net/rss/tecnologia/portada.xml')
+	
+	items = tree.xpath('//item')
+	
+	for i in items:
+		numero_items += 1
+		titulo_temp = i.xpath('title')
+		if titulo_temp:
+			titulo = titulo_temp[0].text.encode('utf-8')
+		
+		link_temp = i.xpath('link')
+		if link_temp:
+			link = link_temp[0].text.encode('utf-8')
+		
+		categorias = []
+		categorias_temp = i.xpath('category')
+		
+		for c in categorias_temp:
+			categorias.append(c.text.encode('utf-8'))
+			
+		noticia = {
+			'titulo':titulo,
+			'link':link,
+			'categorias':categorias,
+		}
+		
+		coleccion.insert_one(noticia).inserted_id
+		
+	return JsonResponse({'num_noticias':numero_items})
