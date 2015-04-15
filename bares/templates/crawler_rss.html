@@ -1,17 +1,21 @@
 {% extends "base.html" %}
-{% block content %}
-	<h1>Crawler RSS</h1>
-		<form class="body_centrado" action="{% url 'crawler_rss' %}" method="post">{% csrf_token %}
-			<input type="text" name="categoria">
-			<input type="submit" value="Buscar">
+{% block content %} 
+		<h1>Crawler Tecnología RSS</h1>
+		<p class="lead">Crawler de RSS que permite buscar noticias por sus categorías (ej: Robótica, Telecomunicaciones, etc)</p>
+		<form action="{% url 'crawler_rss' %}" method="post">{% csrf_token %}
+			<div class="form-group">
+				<input type="text" name="categoria" class="form-control">
+			</div>
+			<input class="btn btn-primary" type="submit" value="Buscar">
 		</form>
-		
-		<ul>
+		<h2>Resultados de la búsqueda</h2>
+		<ul class="nav nav-pills">
 		{% for noticia in noticias %}
 			<li>
-				<a class="body_enlace" href="{{ noticia.link }}">{{ noticia.titulo }}</a>
+				<a href="{{ noticia.link }}">{{ noticia.titulo }}</a>
 			</li>
 		{% endfor %}
 		</ul>
-	</div>
+
+		
 {% endblock %}
