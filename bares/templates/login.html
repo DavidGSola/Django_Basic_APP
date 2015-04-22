@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-	<div class="form_titulo">
-		LOGIN
-	</div>
+	{% load i18n %}
+	<h1>{% trans "Conectar" %}</h1>
 	<form action="{% url 'login' %}" method="post">{% csrf_token %}
 		<table class="form">
 			{{ form.as_table }}

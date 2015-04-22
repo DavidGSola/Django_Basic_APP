@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-	<h1>¿Dónde se encuentra la ETSIIT?</h1>
+	{% load i18n %}
+	<h1>{% trans "¿Dónde se encuentra la ETSIIT?" %}</h1>
 	
 	<div class="bloque_texto">
-		<p><b>Comunidad autónoma:</b> {{ ca }} </p>
-		<p><b>Provincia:</b> {{ provincia }} </p>
-		<p><b>Municipio:</b> {{ municipio }} </p>
-		<p><b>Comarca:</b> {{ comarca }} </p>
+		<p><b>{% trans "Comunidad autónoma" %}:</b> {{ ca }} </p>
+		<p><b>{% trans "Provincia" %}:</b> {{ provincia }} </p>
+		<p><b>{% trans "Municipio" %}:</b> {{ municipio }} </p>
+		<p><b>{% trans "Comarca" %}:</b> {{ comarca }} </p>
 	</div>
 {% endblock %}

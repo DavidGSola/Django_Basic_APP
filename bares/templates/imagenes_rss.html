@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-	<h1>Imágenes extraídas de un XML</h1>
+	{% load i18n %}
+	<h1>{% trans "Imágenes extraídas de un XML" %}</h1>
 
 	<div class="body_centrado">	
 		{% for imagen in imagenes %}

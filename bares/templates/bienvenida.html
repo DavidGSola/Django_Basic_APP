@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-	<p>Bienvenido a la web <b>{{ user.username }}</b></p>
+	{% load i18n %}
+	<p>{% trans "Bienvenido a la web" %} <b>{{ user.username }}</b></p>
 	
 	<ul>
 		<li>
-			<a class="body_enlace" href="{% url 'geografia' %}">Localización ETSIIT</a>
+			<a class="body_enlace" href="{% url 'geografia' %}">{% trans "¿Dónde está la ETSIIT?" %}</a>
 		</li>
 		<li>
-			<a class="body_enlace" href="{% url 'imagenes_rss' %}">Imágenes periódico</a>
+			<a class="body_enlace" href="{% url 'imagenes_rss' %}">{% trans "Imágenes RSS" %}</a>
 		</li>
 		<li>
-			<a class="body_enlace" href="{% url 'crawler_rss' %}">Crawler RSS</a>
+			<a class="body_enlace" href="{% url 'crawler_rss' %}">{% trans "Crawler RSS" %}</a></a>
 		</li>
 	</ul>
 {% endblock %}

@@ -1,0 +1,102 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-22 17:29+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/base.html:13
+msgid "Django: una app muy básica"
+msgstr "Django: a very basic app"
+
+#: templates/base.html:25 templates/bienvenida.html:8
+msgid "¿Dónde está la ETSIIT?"
+msgstr "Where is the ETSIIT?"
+
+#: templates/base.html:28 templates/bienvenida.html:11
+msgid "Imágenes RSS"
+msgstr "RSS Images"
+
+#: templates/base.html:31 templates/bienvenida.html:14
+msgid "Crawler RSS"
+msgstr "RSS Crawler"
+
+#: templates/base.html:37
+msgid "Desconectar"
+msgstr "Logout"
+
+#: templates/base.html:41
+msgid "Registro"
+msgstr "Sign up"
+
+#: templates/base.html:42 templates/login.html:4
+msgid "Conectar"
+msgstr "Login"
+
+#: templates/bienvenida.html:4
+msgid "Bienvenido a la web"
+msgstr "Welcome to the web"
+
+#: templates/crawler_rss.html:4
+msgid "Crawler Tecnología RSS"
+msgstr "Crawler RSS Technology"
+
+#: templates/crawler_rss.html:5
+msgid ""
+"Crawler de RSS que permite buscar noticias por sus categorías (ej: Robótica, "
+"Telecomunicaciones, etc)"
+msgstr "Crawler makes searching RSS news for its categories (eg robotics, telecommunications, etc)"
+
+#: templates/crawler_rss.html:16
+msgid "Resultados de la búsqueda"
+msgstr "Search Results"
+
+#: templates/crawler_rss.html:30
+msgid "Noticias actualizadas"
+msgstr "Updated News"
+
+#: templates/geografia.html:4
+#, fuzzy
+#| msgid "¿Dónde está la ETSIIT?"
+msgid "¿Dónde se encuentra la ETSIIT?"
+msgstr "Where is the ETSIIT?"
+
+#: templates/geografia.html:7
+msgid "Comunidad autónoma"
+msgstr "Autonomous Community"
+
+#: templates/geografia.html:8
+msgid "Provincia"
+msgstr "Province"
+
+#: templates/geografia.html:9
+msgid "Municipio"
+msgstr "Town"
+
+#: templates/geografia.html:10
+msgid "Comarca"
+msgstr "Region"
+
+#: templates/imagenes_rss.html:4
+msgid "Imágenes extraídas de un XML"
+msgstr "Images extracted from an XML"
+
+#: templates/registrar.html:4
+msgid "Registrar"
+msgstr "Record"
+
+#~ msgid "ETSIIT"
+#~ msgstr "Where is the ETSIIT?"
+

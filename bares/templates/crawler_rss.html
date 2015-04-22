@@ -1,31 +1,33 @@
 {% extends "base.html" %}
 {% block content %} 
-		<h1>Crawler Tecnología RSS</h1>
-		<p class="lead">Crawler de RSS que permite buscar noticias por sus categorías (ej: Robótica, Telecomunicaciones, etc)</p>
-		<form action="{% url 'crawler_rss' %}" method="post">{% csrf_token %}
-			<div class="form-group">
-				<input type="text" name="categoria" class="form-control">
-			</div>
-			<input class="btn btn-primary" type="submit" value="Buscar">
-		</form>
-		
-		<button class="btn btn-secondary element_margin" id='btnActualizar'>Actualizar</button>
-		
-		<h2>Resultados de la búsqueda</h2>
-		<ul class="nav nav-pills">
-		{% for noticia in noticias %}
-			<li>
-				<a href="{{ noticia.link }}">{{ noticia.titulo }}</a>
-			</li>
-		{% endfor %}
-		</ul>
+	{% load i18n %}
+	<h1>{% trans "Crawler Tecnología RSS" %}</h1>
+	<p class="lead">{% trans "Crawler de RSS que permite buscar noticias por sus categorías (ej: Robótica, Telecomunicaciones, etc)" %}</p>
+	<form action="{% url 'crawler_rss' %}" method="post">{% csrf_token %}
+		<div class="form-group">
+			<input type="text" name="categoria" class="form-control">
+		</div>
+		<input class="btn btn-primary" type="submit" value="Buscar">
+	</form>
+	
+	<button class="btn btn-secondary element_margin" id='btnActualizar'>Actualizar</button>
+	<i id="icon_loading" style="display: none;" class="glyphicon glyphicon-refresh faa-spin animated"></i>
+	
+	<h2>{% trans "Resultados de la búsqueda" %}</h2>
+	<ul class="nav nav-pills">
+	{% for noticia in noticias %}
+		<li>
+			<a href="{{ noticia.link }}">{{ noticia.titulo }}</a>
+		</li>
+	{% endfor %}
+	</ul>
 
 	<div id="modal_resultado" class="modal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title">Noticias actualizadas</h4>
+					<h4 class="modal-title">{% trans "Noticias actualizadas" %}</h4>
 				</div>
 				<div class="modal-body">
 					<p id="modal_texto"/>
@@ -39,12 +41,16 @@
 
 	<script>
 		$("#btnActualizar").click( function() {
-		
+			
+			$('#icon_loading').show();
+			
+			
 			$.post(
 				"{% url 'crawler_rss_actualizar' %}",
 				{csrfmiddlewaretoken: '{{ csrf_token }}'},
 				function(result)
 				{
+					$('#icon_loading').hide();
 					$('#modal_texto').text("Se han actualizado un total de " + result.num_noticias + " noticias.");
 					$("#modal_resultado").modal();
 				}
