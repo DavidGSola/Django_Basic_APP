@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-22 17:29+0000\n"
+"POT-Creation-Date: 2015-04-22 17:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,31 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/base.html:13
+#: templates/base.html:14
 msgid "Django: una app muy básica"
 msgstr "Django: a very basic app"
 
-#: templates/base.html:25 templates/bienvenida.html:8
+#: templates/base.html:26 templates/bienvenida.html:8
 msgid "¿Dónde está la ETSIIT?"
 msgstr "Where is the ETSIIT?"
 
-#: templates/base.html:28 templates/bienvenida.html:11
+#: templates/base.html:29 templates/bienvenida.html:11
 msgid "Imágenes RSS"
 msgstr "RSS Images"
 
-#: templates/base.html:31 templates/bienvenida.html:14
+#: templates/base.html:32 templates/bienvenida.html:14
 msgid "Crawler RSS"
 msgstr "RSS Crawler"
 
-#: templates/base.html:37
+#: templates/base.html:38
 msgid "Desconectar"
 msgstr "Logout"
 
-#: templates/base.html:41
+#: templates/base.html:42
 msgid "Registro"
 msgstr "Sign up"
 
-#: templates/base.html:42 templates/login.html:4
+#: templates/base.html:43 templates/login.html:4
 msgid "Conectar"
 msgstr "Login"
 
@@ -57,7 +57,9 @@ msgstr "Crawler RSS Technology"
 msgid ""
 "Crawler de RSS que permite buscar noticias por sus categorías (ej: Robótica, "
 "Telecomunicaciones, etc)"
-msgstr "Crawler makes searching RSS news for its categories (eg robotics, telecommunications, etc)"
+msgstr ""
+"Crawler makes searching RSS news for its categories (eg robotics, "
+"telecommunications, etc)"
 
 #: templates/crawler_rss.html:16
 msgid "Resultados de la búsqueda"
@@ -99,4 +101,3 @@ msgstr "Record"
 
 #~ msgid "ETSIIT"
 #~ msgstr "Where is the ETSIIT?"
-

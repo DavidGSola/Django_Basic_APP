@@ -4,8 +4,10 @@
 	<h1>{% trans "Imágenes extraídas de un XML" %}</h1>
 
 	<div class="body_centrado">	
-		{% for imagen in imagenes %}
-			<img class="imagen" src="{{ imagen }}"/>
-		{% endfor %}
+		<div class="slider">
+			{% for imagen in imagenes %}
+				<img class="imagen" src="{{ imagen }}"/>
+			{% endfor %}
+		</div>
 	</div>
 {% endblock %}
