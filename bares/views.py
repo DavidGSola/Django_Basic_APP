@@ -247,6 +247,10 @@ def crawler_rss(request):
 			if link_temp:
 				link = link_temp[0].text.encode('utf-8')
 			
+			text_temp = i.xpath('description')
+			if text_temp:
+				text = text_temp[0].text.encode('utf-8')
+			
 			categorias = []
 			categorias_temp = i.xpath('category')
 			
@@ -257,6 +261,7 @@ def crawler_rss(request):
 				'titulo':titulo,
 				'link':link,
 				'categorias':categorias,
+				'text':text,
 			}
 			
 			coleccion.insert_one(noticia).inserted_id
@@ -288,6 +293,10 @@ def crawler_rss_actualizar(request):
 		if link_temp:
 			link = link_temp[0].text.encode('utf-8')
 		
+		text_temp = i.xpath('description')
+		if text_temp:
+			text = text_temp[0].text.encode('utf-8')
+			
 		categorias = []
 		categorias_temp = i.xpath('category')
 		
@@ -298,6 +307,7 @@ def crawler_rss_actualizar(request):
 			'titulo':titulo,
 			'link':link,
 			'categorias':categorias,
+			'text':text,
 		}
 		
 		coleccion.insert_one(noticia).inserted_id

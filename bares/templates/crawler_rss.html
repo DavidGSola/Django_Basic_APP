@@ -3,9 +3,9 @@
 	{% load i18n %}
 	<h1>{% trans "Crawler Tecnología RSS" %}</h1>
 	<p class="lead">{% trans "Crawler de RSS que permite buscar noticias por sus categorías (ej: Robótica, Telecomunicaciones, etc)" %}</p>
-	<form action="{% url 'crawler_rss' %}" method="post">{% csrf_token %}
+	<form id="formulario_busqueda" action="{% url 'crawler_rss' %}" method="post">{% csrf_token %}
 		<div class="form-group">
-			<input type="text" name="categoria" class="form-control">
+			<input id="categoria" type="text" name="categoria" class="form-control">
 		</div>
 		<input class="btn btn-primary" type="submit" value="Buscar">
 	</form>
@@ -14,13 +14,26 @@
 	<i id="icon_loading" style="display: none;" class="glyphicon glyphicon-refresh faa-spin animated"></i>
 	
 	<h2>{% trans "Resultados de la búsqueda" %}</h2>
-	<ul class="nav nav-pills">
-	{% for noticia in noticias %}
-		<li>
-			<a href="{{ noticia.link }}">{{ noticia.titulo }}</a>
-		</li>
-	{% endfor %}
-	</ul>
+	<div class="list-group">
+    {% for new in noticias %}
+    
+        <div class='list-group-item'>
+            <h4> <b> <a href="{{ new.link }}">{{ new.titulo }}</a> </b> </h4>
+            <p> {{ new.text | safe }} </p>
+            <b>Categorías:</b>
+            <ul class="nav nav-pills">
+				{% for c in new.categorias %}
+					<li>
+						<a class="body_enlace" href="javascript:fsd('{{ c }}')">{{ c }}</a> &nbsp;&nbsp;&nbsp;&nbsp;
+					</li>
+				{% endfor %}
+			</ul>
+        </div>
+
+    {% endfor %}
+    </div>
+
+	
 
 	<div id="modal_resultado" class="modal">
 		<div class="modal-dialog">
@@ -56,6 +69,14 @@
 				}
 			);
 		});
+	</script>
+	
+	<script>
+		function fsd(categoria)
+		{
+			document.getElementById('categoria').value=categoria;
+			document.getElementById('formulario_busqueda').submit();
+		}
 	</script>
 		
 	
